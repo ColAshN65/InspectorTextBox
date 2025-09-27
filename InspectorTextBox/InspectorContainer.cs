@@ -24,11 +24,12 @@ public partial class InspectorContainer : ObservableObject, IDisposable
         set
         {
             _state = value;
-            StateChanged?.Invoke(this, new InspectorEventArgs(value));
+            StateChanged?.Invoke(this, new InspectorEventArgs(value, Value));
         }
     }
 
     public event InspectorEventHandler StateChanged;
+    public event InspectorEventHandler ValueChanged;
 
     public InspectorContainer(IEnumerable<IInspectorValidator> validators, string value = "")
     {
@@ -45,7 +46,10 @@ public partial class InspectorContainer : ObservableObject, IDisposable
     }
 
     partial void OnValueChanged(string value)
-        => ValidateValue(value);
+    {
+        ValidateValue(value);
+        ValueChanged?.Invoke(this, new InspectorEventArgs(State, value));
+    }
 
     private async void ValidateValue(string value)
     {

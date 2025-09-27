@@ -3,8 +3,10 @@
 public class InspectorEventArgs : EventArgs
 {
     public InspectorState State { get; }
-    public InspectorEventArgs(InspectorState state)
+    public string Value { get; }
+    public InspectorEventArgs(InspectorState state, string value)
     {
         State = state;
+        Value = value;
     }
 }
