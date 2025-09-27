@@ -3,6 +3,10 @@ using InspectorTextBox.Events;
 
 namespace InspectorTextBox;
 
+/// <summary>
+///     Class that implements interaction with the InspectorBox at the ViewModel level.
+///     It contains a Value property, which is checked by the specified validators.
+/// </summary>
 public partial class InspectorContainer : ObservableObject, IDisposable
 {
     [ObservableProperty]
@@ -11,29 +15,29 @@ public partial class InspectorContainer : ObservableObject, IDisposable
     [ObservableProperty]
     private string _notification;
 
-    [ObservableProperty]
+    private IEnumerable<IInspectorValidator> validators;
+
     private InspectorState _state;
-
-    /*[ObservableProperty]
-    private bool _isLocked;
-
-    private bool _isReady;
-    public bool IsReady
+    private InspectorState State
     {
-        get => _isReady;
-        private set
+        get => _state;
+        set
         {
-            _isReady = value;
-            IsReadyChanged?.Invoke(this, new InspectorEventArgs(value));
+            _state = value;
+            StateChanged?.Invoke(this, new InspectorEventArgs(value));
         }
-    }*/
+    }
 
     public event InspectorEventHandler StateChanged;
 
-    public InspectorContainer(string value = "")
-        => Init([], value);
     public InspectorContainer(IEnumerable<IInspectorValidator> validators, string value = "")
-        => Init(validators, value);
+    {
+        this.validators = validators;
+        Value = value;
+    }
+
+    public void SetValidators(IEnumerable<IInspectorValidator> newValidators)
+        => validators = newValidators;
 
     public void Dispose()
     {
@@ -43,18 +47,6 @@ public partial class InspectorContainer : ObservableObject, IDisposable
     partial void OnValueChanged(string value)
         => ValidateValue(value);
 
-    partial void OnStateChanged(InspectorState value)
-    {
-        StateChanged?.Invoke(this, new InspectorEventArgs(value));
-    }
-
-    private IEnumerable<IInspectorValidator> validators;
-
-    private void Init(IEnumerable<IInspectorValidator> validators, string value)
-    {
-        this.validators = validators;
-        Value = value;
-    }
     private async void ValidateValue(string value)
     {
         State = InspectorState.Validating;
