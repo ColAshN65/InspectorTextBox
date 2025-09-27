@@ -1,0 +1,22 @@
+﻿<Window x:Class="InspectorTextBox.Example.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InspectorTextBox.Example.View"
+        
+        xmlns:ins="clr-namespace:InspectorTextBox;assembly=InspectorTextBox"
+        
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Background="LightGray">
+    <Window.Resources>
+        <ResourceDictionary Source="/Styles.xaml"/>
+    </Window.Resources>
+    
+    <DockPanel>
+        <ins:InspectorBox Height="100"
+                          Width="300"
+                          ValueContainer="{Binding MainContainer}" 
+                          Style="{StaticResource InspectorBoxStyle}"/>
+    </DockPanel>
+</Window>
