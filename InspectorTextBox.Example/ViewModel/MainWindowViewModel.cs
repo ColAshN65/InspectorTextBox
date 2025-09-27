@@ -10,12 +10,16 @@ public partial class MainWindowViewModel : ObservableObject
 
     public MainWindowViewModel()
     {
-        MainContainer = new InspectorContainer([
+        var validators = new List<IInspectorValidator>()
+        {
             new NullValidator(),
             new EmptyValidator(),
             new MinStringLengthValidator(3),
-            new NoHelloValidator(),
-            new MaxStringLengthValidator(10)],
-            "Hello");
+            new MaxStringLengthValidator(10)
+        };
+
+        MainContainer = new InspectorContainer(validators, "Hello");
+
+        validators.Add(new NoHelloValidator());
     }
 }
