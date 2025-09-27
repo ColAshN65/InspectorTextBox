@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using InspectorTextBox.Events;
+using System.Diagnostics;
 
 namespace InspectorTextBox;
 
@@ -55,17 +56,25 @@ public partial class InspectorContainer : ObservableObject, IDisposable
     {
         State = InspectorState.Validating;
 
-        foreach (var validator in validators)
+        //Collection may be modified.
+        try
         {
-            string result = await validator.ValidateAsync(value);
-
-            if (result is not null)
+            foreach (var validator in validators)
             {
-                Notification = result;
+                string result = await validator.ValidateAsync(value);
 
-                State = InspectorState.Error;
-                return;
+                if (result is not null)
+                {
+                    Notification = result;
+
+                    State = InspectorState.Error;
+                    return;
+                }
             }
+        }
+        catch(Exception ex)
+        {
+            Debug.WriteLine("[ERROR] ", ex.Message);
         }
 
         Notification = "";

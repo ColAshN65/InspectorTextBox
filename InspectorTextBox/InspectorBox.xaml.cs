@@ -63,7 +63,7 @@ namespace InspectorTextBox
                         typeof(InspectorContainer),
                         typeof(InspectorBox),
                         new FrameworkPropertyMetadata(
-                            new InspectorContainer(),
+                            new InspectorContainer([]),
                             new PropertyChangedCallback(ContainerChanged)));
 
             StateProperty = DependencyProperty.Register(
