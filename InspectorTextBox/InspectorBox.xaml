@@ -10,7 +10,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="{Binding ElementName=NotifyLabel, Path=Height}"/>
         </Grid.RowDefinitions>
 
         <TextBox x:Name="InputTextBox"

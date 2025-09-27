@@ -9,15 +9,14 @@
     
     <Style x:Key="BaseTextBoxStyle"
            TargetType="TextBox">
-        <Setter Property="FontSize" Value="18"/>
-        <Setter Property="MinHeight" Value="30"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Height" Value="30"/>
         <Setter Property="Margin" Value="5"/>
     </Style>
 
     <Style x:Key="BaseTextBlockStyle"
            TargetType="TextBlock">
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="MinHeight" Value="20"/>
         <Setter Property="Margin" Value="10,0,10,0"/>
     </Style>
 
@@ -30,6 +29,7 @@
            TargetType="TextBlock"
            BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="Foreground" Value="{StaticResource Ready}"/>
+        <Setter Property="Height" Value="0"/>
     </Style>
 
 
@@ -54,14 +54,17 @@
            TargetType="TextBlock"
            BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="Foreground" Value="{StaticResource Error}"/>
+        <Setter Property="Height" Value="20"/>
     </Style>
 
-
+    <!--Simple example of InspectorBox style-->
     <Style x:Key="InspectorBoxStyle"
-           TargetType="ins:InspectorBox">
+    TargetType="ins:InspectorBox">
 
         <Style.Triggers>
+            <!--InspectorBox has a State property that is binding to the State property of InspectorContainer-->
             <Trigger Property="State" Value="Ready">
+                <!--InspectorBox contains properties to set styles for components-->
                 <Setter Property="TextBoxStyle" Value="{StaticResource ReadyTextBoxStyle}"/>
                 <Setter Property="NotificationStyle" Value="{StaticResource ReadyTextBlockStyle}"/>
             </Trigger>
@@ -75,6 +78,4 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
-    
 </ResourceDictionary>

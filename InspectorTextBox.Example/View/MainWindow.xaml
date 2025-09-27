@@ -14,9 +14,12 @@
     </Window.Resources>
     
     <DockPanel>
-        <ins:InspectorBox Height="100"
-                          Width="300"
-                          ValueContainer="{Binding MainContainer}" 
-                          Style="{StaticResource InspectorBoxStyle}"/>
+        <StackPanel Height="100"
+                    Width="300">
+            <ins:InspectorBox ValueContainer="{Binding MainContainer}"
+                              Style="{StaticResource InspectorBoxStyle}"
+                              Background="Gray"/>
+        </StackPanel>
+        
     </DockPanel>
 </Window>
