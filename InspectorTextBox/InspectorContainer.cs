@@ -56,7 +56,6 @@ public partial class InspectorContainer : ObservableObject, IDisposable
     {
         State = InspectorState.Validating;
 
-        //Collection may be modified.
         try
         {
             foreach (var validator in validators)
@@ -72,7 +71,9 @@ public partial class InspectorContainer : ObservableObject, IDisposable
                 }
             }
         }
-        catch(Exception ex)
+
+        //The collection may be changed before the end of validation.
+        catch (InvalidOperationException ex)
         {
             Debug.WriteLine("[ERROR] ", ex.Message);
         }
